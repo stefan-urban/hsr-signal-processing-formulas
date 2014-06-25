@@ -6,3 +6,6 @@ As undergraduate I attended the lecture "signal processing" by Prof. Zollner. Th
 
 
 All documents are written in GERMAN!
+
+
+I can not guarantee that everything is correct. Use at own risk!
