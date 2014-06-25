@@ -1,0 +1,97 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[margin=3.0cm,top=4cm]{geometry}
+\usepackage[]{graphicx}
+
+\usepackage{array}
+\usepackage{lastpage}
+\usepackage{blindtext} 
+\usepackage{amsmath} 
+\usepackage{nicefrac}
+\usepackage{float}
+
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+\usepackage{sectsty}
+\sectionfont{\fontsize{12}{15}\selectfont}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Inverser Tschebyscheff Tiefpass}
+\fancyhead[R]{Stefan Urban}
+\fancyfoot[R]{Seite \thepage\ von \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%\addtolength{\parskip}{2mm}
+\setlength{\parindent}{0pt}
+
+
+\begin{document}
+
+	Normierung erfolgt auf Sperrfrequenz: $ \Omega = \frac{\omega}{\omega_s} $.
+	\vspace{0.5cm}
+
+\begin{minipage}[t]{0.4\textwidth}
+	\section*{Verstärkung}
+	    \[ H(\Omega) = \frac{1}{\sqrt{1 + \frac{d^2}{T^2_n\left(\frac{1}{\Omega}\right)}}} \]
+\end{minipage}
+\begin{minipage}[t]{0.6\textwidth}
+\section*{Dämpfung}
+	    \[ a(\Omega) = 10dB \cdot \log{\left(1 + \frac{d^2}{T^2_n\left(\frac{1}{\Omega}\right)}\right)} \]
+\end{minipage}
+
+\section*{Asymptoten}
+   	\begin{minipage}[t]{0.5\textwidth}
+		n gerade:
+		\begin{align*}
+			a_{\Omega\rightarrow 0,n} &= 0 dB &\\
+			a_{\Omega\rightarrow \infty,n} &= a_s &
+		\end{align*}
+   	\end{minipage}
+   	\begin{minipage}[t]{0.5\textwidth}
+		n ungerade:
+		\begin{align*}
+			a_{\Omega\rightarrow 0,n} &= 0 dB &\\
+			a_{\Omega\rightarrow \infty,n} &= 20dB\cdot \log \left(\frac{d}{n}\right) + 20dB \cdot \log \Omega &
+		\end{align*}
+   	\end{minipage}
+	
+\section*{Aufwandsabschätzung}
+	\vspace{-0.5cm}
+   	\begin{minipage}[t]{0.5\textwidth}
+		\[ \frac{d}{c} = \sqrt{\frac{10^{a_s/10dB} - 1}{10^{a_p/10dB} - 1}} \]
+   	\end{minipage}
+   	\begin{minipage}[t]{0.5\textwidth}
+		\[ n \ge \frac{\cosh^{-1}{\left(\frac{d}{c}\right)}}{\cosh^{-1}{\left(\frac{\omega_s}{\omega_p}\right)}} \]
+   	\end{minipage}
+   	\vspace{0cm}
+   	
+\section*{Butterworth-Polwinkel}
+	\[ \varTheta_{BWk} = \frac{(2k-1)\cdot \pi}{2 \cdot n} \qquad k = 1, 2, ... n \]
+
+\section*{Nullstellen}
+	Für ungerades n liegt eine Nullstelle bei $ p = \infty $.
+	\[ p_{0k} = \frac{j \omega_s}{\cos{\varTheta_{BWk}}} \]
+	
+\section*{Pole}
+	\[ d = \sqrt{10^{a_s/10dB} - 1} \approx 10^{a_s / 20dB} \qquad \ln \beta = \ln \left( d + \sqrt{1 + d^2}\right) \approx \ln \left( 2 \cdot d\right) \]
+	\vspace{0cm}
+	\[ \xi = - \sinh \left(\frac{\ln \beta}{n}\right) \cdot \sin \left(\varTheta_{BWk} \right) \qquad \eta = \cosh \left(\frac{\ln \beta}{n}\right) \cdot \cos \left(\varTheta_{BWk}\right)\]
+	\vspace{0cm}
+	\[ \omega_x = \frac{\omega_s}{\sqrt{\xi^2 + \eta^2}} \qquad \varTheta_x = \tan^{-1}\left(\frac{\xi}{\eta}\right) \qquad Q_x = \frac{1}{2} \cdot \sqrt{1 + \frac{\eta^2}{\xi^2}} \]
+	
+\clearpage
+   	
+\end{document}

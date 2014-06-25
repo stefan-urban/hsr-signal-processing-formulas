@@ -1,0 +1,129 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[margin=3.0cm,top=4cm]{geometry}
+\usepackage[]{graphicx}
+
+\usepackage{array}
+\usepackage{lastpage}
+\usepackage{blindtext} 
+\usepackage{amsmath} 
+\usepackage{nicefrac}
+\usepackage{float}
+
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+\usepackage{sectsty}
+\sectionfont{\fontsize{12}{15}\selectfont}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Tschebyscheff Hochpass}
+\fancyhead[R]{Stefan Urban}
+\fancyfoot[R]{Seite \thepage\ von \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%\addtolength{\parskip}{2mm}
+\setlength{\parindent}{0pt}
+
+
+\begin{document}
+
+	Normierung erfolgt auf Durchlassfrequenz: $ \Omega = \frac{\omega}{\omega_p} $.
+	\vspace{0.5cm}
+
+    \begin{minipage}[t]{0.5\textwidth}
+		\section*{Verstärkung}
+	    	\[ H(\Omega) = \frac{1}{\sqrt{1 + c^2 \cdot T^2_n\left(\frac{1}{\Omega}\right)}} \]
+    \end{minipage}
+    \begin{minipage}[t]{0.5\textwidth}
+		\section*{Dämpfung}
+		    \[ a(\Omega) = 10dB \cdot \log{\left(1 + c^2 \cdot T^2_n\left(\frac{1}{\Omega}\right)\right)} \]
+		   	\[ a_p = 10dB \cdot \log{\left(1+c^2\right)} \]
+    \end{minipage}
+	
+	\vspace{-0.5cm}  
+	
+\section*{Asymtoten}
+    \begin{minipage}[t]{0.5\textwidth}
+		n ungerade:
+		\begin{align*}
+		 	a_{\Omega\rightarrow 0,n} &= 20dB \cdot \log{\left(2^{(n-1)} \cdot c\right)} &\\ &\qquad - n \cdot 20dB \cdot \log{(\Omega)} &\\
+		 	a_{\Omega\rightarrow \infty,n} &= 0dB &
+		\end{align*}
+    \end{minipage}
+    \begin{minipage}[t]{0.5\textwidth}
+		n gerade:
+		\begin{align*}
+		 	a_{\Omega\rightarrow 0,n} &= 20dB \cdot \log{\left(2^{(n-1)} \cdot c\right)} &\\ &\qquad - n \cdot 20dB \cdot \log{(\Omega)} &\\
+		 	a_{\Omega\rightarrow \infty,n} &= a_p &
+		\end{align*}
+    \end{minipage}
+
+\vspace{0.8cm}
+\begin{minipage}[t]{0.6\textwidth}
+	\section*{Aufwandsabschätzung}
+	  
+	\[ \frac{d}{c} = \sqrt{\frac{10^{a_s/10dB} - 1}{10^{a_p/10dB} - 1}} \qquad n \ge \frac{\cosh^{-1}{\left(\frac{d}{c}\right)}}{\cosh^{-1}{\left(\frac{\omega_p}{\omega_s}\right)}} \]
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+	\section*{Nullstellen}
+		Alle n Nullstellen liegen bei $ p_0 = 0 $.
+\end{minipage}
+   	
+	
+\section*{Pole}
+	Zuerst Butterworth Polwinkel ausrechnen:		
+	\[ \varTheta_{xBk} = \pi \cdot \left( \frac{2k-1}{2n} \right)  \]
+	
+	Kreisradien ausrechnen:
+	
+	\begin{minipage}[t]{0.33\textwidth}
+		\vspace{-0.5cm}   	
+		\[ \ln{(\alpha)} = \sinh^{-1}{\left(\frac{1}{c}\right)} \]
+	\end{minipage}
+   	\begin{minipage}[t]{0.33\textwidth}
+		\[ R_i = \sinh{\left(\frac{\ln{\alpha}}{n}\right)} \]
+   	\end{minipage}
+   	\begin{minipage}[t]{0.33\textwidth}
+		\[ R_a = \cosh{\left(\frac{\ln{\alpha}}{n}\right)} \]
+   	\end{minipage}
+   	
+   	\vspace{0.4cm}
+   	Referenz-Tiefpass-Pole und Güte berechnen:
+   	\vspace{-0.4cm}
+   	
+	\begin{minipage}[t]{0.6\textwidth}
+		\[ \Omega_{xTPk} = \sqrt{\left(R_i \cdot \sin{\varTheta_{xBk}}\right)^2 + \left(R_a \cdot \cos{\varTheta_{xBk}}\right)^2} \]
+		\[ \varTheta_{xTPk} = \sin^{-1}{\left(\frac{1}{2Q}\right)} \]
+	\end{minipage}
+   	\begin{minipage}[t]{0.4\textwidth}
+   		\vspace{-0.3cm}
+   		\begin{align*}
+   			Q_{xTPk} &= \frac{1}{2} \cdot \sqrt{1+ \left(\frac{R_a / R_i}{\tan{\varTheta_{xBk}}}\right)^2} &\\
+   			&= \frac{f_x}{2 \cdot R_i \cdot \sin{\varTheta_{xBk}}} &
+   		\end{align*}
+
+   	\end{minipage}
+   	
+   	\vspace{0.4cm}
+   	Hochpass-Pole durch Frequenzinversion und Normierung berechnen:
+   	\vspace{-0.2cm}
+   	
+   	\[ P_{xHPk} = \frac{1}{P_{xTPk}} \qquad p_{xHPk} = \omega_p \cdot P_{xHPk} \]
+   	
+   	 	
+\clearpage
+
+\end{document}
